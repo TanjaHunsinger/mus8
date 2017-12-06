@@ -1,0 +1,56 @@
+---
+title: "MuS8"
+author: "Tanja Hunsinger"
+date: "6 Dezember 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Problem 8.1: Birth-death processes
+Given is a queuing system with two Markov service units and two waiting slots. The service rate is $\mu$. The arrival rate is $\lambda$ if no customer is waiting, $\frac{\lambda}{2}$ otherwise. In the following, the offered load is denoted by a = $\frac{\lambda}{\mu}$ and the relative offered load is $p = \frac{a}{n}$.
+
+##1. Give the states and briefly describe their meaning!
+
+siehe VL 9.3
+
+Zustand 0: leere Bedieneinheit, kein Kunde wartet
+
+Zustand 1: eine Bedieneinheit ist aktiv, aber noch kein Kunde wartet
+
+Zustand 2: zwei Bedieneinheiten sind aktiv, aber noch kein Kunde wartet
+
+Zustand 3: beide Bedieneinheiten sind aktiv und ein Kunde wartet
+
+Zustand 4: beide Bedieneinheiten sind aktiv und zwei Kunden warten
+
+Kommen nun weitere Kunden so müssen sie sich in die Warteschlange einreihen und können noch nicht bedient werden
+
+##2. Give the state transition diagram including transition rates!
+
+
+##3. Formally derive the stationary state probabilities! Define appropriate macro states for this purpose!
+
+##4. Plot diagrams with states on the x-axis and corresponding probabilities on the y-axis! Connect the points belonging to the same $p \in${0.3, 0.7, 0.9} with an interpolating line and scale the diagram appropriately!
+
+##5. Calculate the time-average probabilities that new customers need to wait or are blocked!
+
+##6. Calculate the waiting and blocking probability for new customers! Take into account that the arrival rate depends on the system state!
+
+##7. Plot the waiting and blocking probability for new customers in the interval $p \in$ (0, 1)!
+
+##8. Calculate the mean server utilization and the mean waiting queue length!
+
+##9. Plot the mean utilization and the mean waiting queue length (as multiple of $\frac{1}{\mu}$) in the interval $p \in$(0, 1)!
+
+##10. Formally derive the distribution function of the waiting time for all waiting and for all non-rejected customers, respectively!
+
+##11. Plot the complementary distribution function of the waiting time for all waiting and for all non-rejected customers for $p$ = 0.9 in one diagram! Plot the waiting time as a multiple of $\frac{1}{\mu}$ on the x-axis and the corresponding probabilities on the y-axis!
+
+
+
+
+
+

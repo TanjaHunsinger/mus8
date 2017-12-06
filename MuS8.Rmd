@@ -14,7 +14,7 @@ Given is a queuing system with two Markov service units and two waiting slots. T
 
 ##1. Give the states and briefly describe their meaning!
 
-(siehe VL 9.3)
+siehe VL 9.3
 
 Zustand 0: leere Bedieneinheit, kein Kunde wartet
 

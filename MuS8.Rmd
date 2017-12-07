@@ -1,7 +1,12 @@
 ---
 title: "MuS8"
-author: "Tanja Hunsinger"
+author: "Tanja Hunsinger und Jana Förderreuther"
 date: "6 Dezember 2017"
+header-includes:
+  - \usepackage{tikz}
+  - \usetikzlibrary{arrows,automata}
+  - \usepackage{pgf}
+  - \usepackage{amsthm}
 output: pdf_document
 ---
 
@@ -30,14 +35,97 @@ Kommen nun weitere Kunden so müssen sie sich in die Warteschlange einreihen und 
 
 ##2. Give the state transition diagram including transition rates!
 
+(siehe Skript 9.3)
+
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.2cm, semithick]   
+\tikzstyle{every state}=[fill=white,draw=black,text=black,initial text=]
+\node[state]           (A){$0$};   
+\node[state]           (B) [right of=A] {$1$}; 
+\node[state]           (C) [right of=B] {$2$}; 
+\node[state]           (D) [right of=C] {$3$};
+\node[state]           (E) [right of=D] {$4$};
+
+\path
+(A) edge [bend left, above]node [align=center] {$\lambda$} (B)
+(B) edge [bend left, above]node [align=center] {$\lambda$} (C)
+(C) edge [bend left, above]node [align=center] {$\lambda$} (D)
+(D) edge [bend left, above]node [align=center] {$\frac{\lambda}{2}$} (E)
+(E) edge [bend left, above]node [align=center] {$2 \cdot \mu$} (D)
+(D) edge [bend left, above]node [align=center] {$2 \cdot \mu$} (C)
+(C) edge [bend left, above]node [align=center] {$2 \cdot \mu$} (B)
+(B) edge [bend left, above]node [align=center] {$\mu$} (A)
+
+
+; 
+\end{tikzpicture}
 
 ##3. Formally derive the stationary state probabilities! Define appropriate macro states for this purpose!
 
+(Siehe Skript 9.3)
+
+\begin{align*}
+x(0) &= (1 + \sum_{0<i<=n} \frac{\Pi_{0<k<=i} \lambda_{k-1}}{\Pi_{0<k<=i} \mu_k})^{-1} \\
+x(i) &= x(0) \cdot \frac{\Pi_{0<k<=i} \lambda_{k-1}}{\Pi_{0<k<=i} \mu_k}) \\
+\end{align*}
+
+Aus der Formel im Skript lässt sich nun die state probabilities berechnen: 
+
+\begin{align*}
+x(0)&= ( 1 + \frac{\lambda}{\mu} + \frac{\lambda \cdot \lambda}{2 \cdot \mu \cdot \mu} + \frac{\lambda \cdot \lambda \cdot \lambda}{2 \cdot 2\cdot \mu \cdot \mu \cdot \mu} + \frac{\lambda \cdot \lambda \cdot \lambda \cdot \lambda}{2 \cdot 2 \cdot 2 \cdot 2 \cdot \mu \cdot \mu \cdot \mu \cdot \mu}) ^{-1}\\ 
+&= ( 1 + \frac{\lambda}{\mu} + \frac{\lambda^2}{2 \cdot \mu^2} + \frac{\lambda^3}{4 \cdot \mu^3} + \frac{\lambda^4}{16 \cdot \mu^4}) ^{-1}\\
+x(1) &= x(0) \cdot \frac{\lambda}{\mu} \\
+x(2) &= x(0) \cdot \frac{\lambda^2}{2 \cdot \mu^2} \\
+x(3) &= x(0) \cdot \frac{\lambda^3}{4 \cdot \mu^3} \\
+x(4) &= x(0) \cdot \frac{\lambda^4}{16 \cdot \mu^4} \\
+\end{align*}
+
+Makro states sind:
+
+Makro state 0: Zustand 0
+
+Makro state 1: Zustand 0 und Zustand 1
+
+Makro state 2: Zustand 0, Zustand 1 und Zustand 2
+
+Makro state 3: Zustand 0, Zustand 1, Zustand 2 und Zustand 3
+
+Makro state 4: Zustand 0, Zustand 1, Zustand 2, Zustand 3 und Zustand 4
+
 ##4. Plot diagrams with states on the x-axis and corresponding probabilities on the y-axis! Connect the points belonging to the same $p \in${0.3, 0.7, 0.9} with an interpolating line and scale the diagram appropriately!
+
+(siehe Skript 9.4)
+
+```{r}
+#formel: p = a/n
+p<-c(0.3,0.7,0.9)
+
+```
+
+\textcolor{red}{keine Ahnung :(}
 
 ##5. Calculate the time-average probabilities that new customers need to wait or are blocked!
 
+Überlegung: Das Kunden warten bzw geblocked werden kann nur in Zustand 2,3 und 4 vorkommen (vergeliche Aufgabe 8.1.1).
+Die Wahrscheinlichkeit berechnet sich also aus der Summe aus x(2), x(3) und x(4). Wobei hier wb= waiting oder blocking bedeutet.
+
+\begin{align*}
+P(wb) &= x(2) + x(3) + x(4)\\
+ &= x(0) \cdot \frac{\lambda^2}{2 \cdot \mu^2} + x(0) \cdot \frac{\lambda^3}{4 \cdot \mu^3} + x(0) \cdot \frac{\lambda^4}{16 \cdot \mu^4} \\
+  &= x(0) \cdot ( \frac{\lambda^2}{2 \cdot \mu^2} + \frac{\lambda^3}{4 \cdot \mu^3} + \frac{\lambda^4}{16 \cdot \mu^4} )
+\end{align*}
+
+
 ##6. Calculate the waiting and blocking probability for new customers! Take into account that the arrival rate depends on the system state!
+
+Überlegung: In Zustand 2 und 3 warten die Kunden, in Zustand 4 werden sie blockiert. Die Wahrscheinlichkeit zu warten wird mit P(w) berechnet und setzt sich aus der Summe von x(2) und x(3) zusammen. P(b) gibt die Wahrscheinlichkeit blockiert zu sein an und ist x(4).
+
+\begin{align*}
+P(w) &= x(2) + x(3)\\
+ &= x(0) \cdot \frac{\lambda^2}{2 \cdot \mu^2} + x(0) \cdot \frac{\lambda^3}{4 \cdot \mu^3} \\
+  &= x(0) \cdot ( \frac{\lambda^2}{2 \cdot \mu^2} + \frac{\lambda^3}{4 \cdot \mu^3}  ) \\
+P(b) &= x(4) \\
+&= x(0) \cdot \frac{\lambda^4}{16 \cdot \mu^4}
+\end{align*}
 
 ##7. Plot the waiting and blocking probability for new customers in the interval $p \in$ (0, 1)!
 

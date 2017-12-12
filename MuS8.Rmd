@@ -48,7 +48,7 @@ Kommen nun weitere Kunden so müssen sie sich in die Warteschlange einreihen und 
 \path
 (A) edge [bend left, above]node [align=center] {$\lambda$} (B)
 (B) edge [bend left, above]node [align=center] {$\lambda$} (C)
-(C) edge [bend left, above]node [align=center] {$\frac{\lambda}{2}$} (D)
+(C) edge [bend left, above]node [align=center] {$\lambda$} (D)
 (D) edge [bend left, above]node [align=center] {$\frac{\lambda}{2}$} (E)
 (E) edge [bend left, above]node [align=center] {$2 \cdot \mu$} (D)
 (D) edge [bend left, above]node [align=center] {$2 \cdot \mu$} (C)
@@ -71,12 +71,12 @@ x(i) &= x(0) \cdot \frac{\Pi_{0<k<=i} \lambda_{k-1}}{\Pi_{0<k<=i} \mu_k}) \\
 Aus der Formel im Skript lässt sich nun die state probabilities berechnen: 
 
 \begin{align*}
-x(0)&= ( 1 + \frac{\lambda}{\mu} + \frac{\lambda \cdot \lambda}{2 \cdot \mu \cdot \mu} + \frac{\lambda \cdot \lambda \cdot \frac{\lambda}{2}}{2 \cdot 2\cdot \mu \cdot \mu \cdot \mu} + \frac{\lambda \cdot \lambda \cdot \frac{\lambda}{2} \cdot \frac{\lambda}{2}}{2 \cdot 2 \cdot 2 \cdot 2 \cdot \mu \cdot \mu \cdot \mu \cdot \mu}) ^{-1}\\ 
-&= ( 1 + \frac{\lambda}{\mu} + \frac{\lambda^2}{2 \cdot \mu^2} + \frac{\frac{\lambda^3}{2}}{4 \cdot \mu^3} + \frac{\frac{\lambda^4}{4}}{16 \cdot \mu^4}) ^{-1}\\
+x(0)&= ( 1 + \frac{\lambda}{\mu} + \frac{\lambda \cdot \lambda}{2 \cdot \mu \cdot \mu} + \frac{\lambda \cdot \lambda \cdot \lambda}{2 \cdot 2\cdot \mu \cdot \mu \cdot \mu} + \frac{\lambda \cdot \lambda \cdot \frac{\lambda}{2} \cdot \frac{\lambda}{2}}{2 \cdot 2 \cdot 2 \cdot \mu \cdot \mu \cdot \mu \cdot \mu}) ^{-1}\\ 
+&= ( 1 + \frac{\lambda}{\mu} + \frac{\lambda^2}{2 \cdot \mu^2} + \frac{\lambda^3}{4 \cdot \mu^3} + \frac{\frac{\lambda^4}{2}}{8 \cdot \mu^4}) ^{-1}\\
 x(1) &= x(0) \cdot \frac{\lambda}{\mu} \\
 x(2) &= x(0) \cdot \frac{\lambda^2}{2 \cdot \mu^2} \\
-x(3) &= x(0) \cdot \frac{\frac{\lambda^3}{2}}{4 \cdot \mu^3} \\
-x(4) &= x(0) \cdot \frac{\frac{\lambda^4}{4}}{16 \cdot \mu^4} \\
+x(3) &= x(0) \cdot \frac{\lambda^3}{4 \cdot \mu^3} \\
+x(4) &= x(0) \cdot \frac{\frac{\lambda^4}{2}}{8 \cdot \mu^4} \\
 \end{align*}
 
 Makro states sind:
@@ -99,6 +99,11 @@ Makro state 4: Zustand 0, Zustand 1, Zustand 2, Zustand 3 und Zustand 4
 #formel: p = a/n
 p<-c(0.3,0.7,0.9)
 
+#Anzahl an zustaende
+n<-4
+
+
+
 ```
 
 \textcolor{red}{keine Ahnung :(}
@@ -110,8 +115,8 @@ Die Wahrscheinlichkeit berechnet sich also aus der Summe aus x(2), x(3) und x(4)
 
 \begin{align*}
 P(wb) &= x(2) + x(3) + x(4)\\
- &= x(0) \cdot \frac{\lambda^2}{2 \cdot \mu^2} + x(0) \cdot \frac{\lambda^3}{4 \cdot \mu^3} + x(0) \cdot \frac{\lambda^4}{16 \cdot \mu^4} \\
-  &= x(0) \cdot ( \frac{\lambda^2}{2 \cdot \mu^2} + \frac{\frac{\lambda^3}{2}}{4 \cdot \mu^3} + \frac{\frac{\lambda^4}{4}}{16 \cdot \mu^4} )
+ &= x(0) \cdot \frac{\lambda^2}{2 \cdot \mu^2} + x(0) \cdot \frac{\lambda^3}{4 \cdot \mu^3} + x(0) \cdot \frac{\frac{\lambda^4}{2}}{8 \cdot \mu^4} \\
+  &= x(0) \cdot ( \frac{\lambda^2}{2 \cdot \mu^2} + \frac{\lambda^3}{4 \cdot \mu^3} + \frac{\frac{\lambda^4}{2}}{8 \cdot \mu^4} )
 \end{align*}
 
 
@@ -124,7 +129,7 @@ P(w) &= x(2) + x(3)\\
  &= x(0) \cdot \frac{\lambda^2}{2 \cdot \mu^2} + x(0) \cdot \frac{\frac{\lambda^3}{2}}{4 \cdot \mu^3} \\
   &= x(0) \cdot ( \frac{\lambda^2}{2 \cdot \mu^2} + \frac{\frac{\lambda^3}{2}}{4 \cdot \mu^3}  ) \\
 P(b) &= x(4) \\
-&= x(0) \cdot \frac{\frac{\lambda^4}{4}}{16 \cdot \mu^4}
+&= x(0) \cdot \frac{\frac{\lambda^4}{2}}{8 \cdot \mu^4}
 \end{align*}
 
 ##7. Plot the waiting and blocking probability for new customers in the interval $p \in$ (0, 1)!

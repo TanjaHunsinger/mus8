@@ -96,17 +96,50 @@ Makro state 4: Zustand 0, Zustand 1, Zustand 2, Zustand 3 und Zustand 4
 (siehe Skript 9.4)
 
 ```{r}
-#formel: p = a/n
-p<-c(0.3,0.7,0.9)
-
 #Anzahl an zustaende
 n<-4
+
+#probability
+p1<-0.3
+p2<-0.7
+p3<-0.9
+
+#formel: p = a/n
+a1<-p1*n
+a2<-p2*n
+a3<-p3*n
+
+#berechnung x0 bis x4
+hilfsfunktion<-function(a){
+    x0<-(1+a+(a^2)/2 +(a^3)/4 + (a^4)/8)^(-1)
+    x1<-x0*a
+    x2<-x0* (a^2)/2
+    x3<-x0* (a^3)/4
+    x4<-x0* (a^4)/8
+    x<-c(x0,x1,x2,x3,x4)
+    return(x)
+}
+
+#berechnungen mit a1-a3 
+result1<-hilfsfunktion(a1)
+result2<-hilfsfunktion(a2)
+result3<-hilfsfunktion(a3)
+
+#zustände
+x<-c(0,1,2,3,4)
+#plot mit p1
+plot(x, result1, type = "b", main = "Zustand mit verschiedenen Wahrscheinlichkeiten", xlab = "Zustand", ylab = "Wahrscheinlichkeit", xlim=c(0, 4), ylim=c(0, 0.5))
+#plot mit p2
+lines(x, result2, type = "b", col="blue")
+#plot mit p3
+lines(x, result3, type = "b", col="red")
+
 
 
 
 ```
 
-\textcolor{red}{keine Ahnung :(}
+Hinweis: die schwarze linie gibt die Wahrscheinlichkeit 0.3, die blaue für 0.7 und die rote Linie für die Wahrscheinlichkeit 0.9 an.
 
 ##5. Calculate the time-average probabilities that new customers need to wait or are blocked!
 

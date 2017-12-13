@@ -204,21 +204,27 @@ result23<-hilfsfunktion2(a23)
 
 
 pw<-c(sum(result21),sum(result22),sum(result23))
-x2<-c(p21, p22, p23)
+pAll<-c(p21, p22, p23)
 
 
 #plot
-plot(x2, pw, type="b", main = "Warte- und Blockierwahrscheinlichkeit für neuen Kunden", xlab = "p = {0.3, 0.7, 0.9}", ylab = "Wahrscheinlichkeit", xlim=c(0.0,1.0))
+plot(pAll, pw, type="b", main = "Warte- und Blockierwahrscheinlichkeit für neuen Kunden"
+     , xlab = "p = {0.3, 0.7, 0.9}", ylab = "Wahrscheinlichkeit", xlim=c(0.0,1.0))
 
 
-temp03 <- sum(werteMatrix[1,3:5])
-temp07 <- sum(werteMatrix[2,3:5])
-temp09 <- sum(werteMatrix[3,3:5])
-pwAll <- c(temp03,temp07,temp09)
-
-plot(x2, pwAll, type="b", main = "VERSION 2 Warte- und Blockierwahrscheinlichkeit für neuen Kunden", xlab = "p = {0.3, 0.7, 0.9}", ylab = "Wahrscheinlichkeit", xlim=c(0.0,1.0))
 ```
+Alternative zum langen, obrigen Code: 
 
+temp03 <- sum(werteMatrix[1,3:5]) 
+
+temp07 <- sum(werteMatrix[2,3:5])
+
+temp09 <- sum(werteMatrix[3,3:5]) 
+
+pwAll <- c(temp03,temp07,temp09) }
+
+\textit{plot(pAll, pwAll, type="b", main = "Warte- und Blockierwahrscheinlichkeit für neuen Kunden",
+     xlab = "p = {0.3, 0.7, 0.9}", ylab = "Wahrscheinlichkeit", xlim=c(0.0,1.0)) }
 
 
 ##8. Calculate the mean server utilization and the mean waiting queue length!
@@ -243,10 +249,21 @@ mwQueueLength
 
 ##9. Plot the mean utilization and the mean waiting queue length (as multiple of $\frac{1}{\mu}$) in the interval $p \in$(0, 1)!
 
+```{r}
+plot(pAll,mwQueueLength, type = "b", main="Mean Waiting queue length (rot) und mean utilization (blue)",
+     xlab = "p = {0.3, 0.7, 0.9}", ylab = "Wahrscheinlichkeit", xlim=c(0.0,1.0))
+lines(approx(pAll,mwQueueLength), col ="red")
+lines(approx(pAll,su), col ="blue")
+```
+
 
 ##10. Formally derive the distribution function of the waiting time for all waiting and for all non-rejected customers, respectively!
 
+$P(W_W \leq t) = 1- e^{-(1-p) * n * \mu * t}$
+$P(W \leq t) \newline = (1-p_W) * P(W_W \leq t) + p_W * P(W_W \leq t) \newline = (1-p_W) * 1) + p_W * (1-e^{-(1-p)*n * \mu * t}) \newline  = 1 - p_W * e^{-(1-p) * n * \mu *t}$
+
 ##11. Plot the complementary distribution function of the waiting time for all waiting and for all non-rejected customers for $p$ = 0.9 in one diagram! Plot the waiting time as a multiple of $\frac{1}{\mu}$ on the x-axis and the corresponding probabilities on the y-axis!
+
 
 
 

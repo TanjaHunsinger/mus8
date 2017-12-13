@@ -97,7 +97,7 @@ Makro state 4: Zustand 0, Zustand 1, Zustand 2, Zustand 3 und Zustand 4
 
 ```{r}
 #Anzahl an zustaende
-n<-4
+n<-5
 
 #probability
 p1<-0.3

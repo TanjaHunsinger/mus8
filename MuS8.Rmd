@@ -135,6 +135,11 @@ lines(x, result2, type = "b", col="blue")
 lines(x, result3, type = "b", col="red")
 
 
+werteMatrix <- matrix( c(result1,
+                    result2,
+                    result3),
+                  nrow=3, ncol=5, byrow=TRUE)
+werteMatrix
 
 
 ```
@@ -167,7 +172,66 @@ P(b) &= x(4) \\
 
 ##7. Plot the waiting and blocking probability for new customers in the interval $p \in$ (0, 1)!
 
+```{r}
+
+#Anzahl an zustaende
+n2<-4
+
+#probability
+p21<-0.3
+p22<-0.7
+p23<-0.9
+
+#formel: p = a/n
+a21<-p21*n2
+a22<-p22*n2
+a23<-p23*n2
+
+hilfsfunktion2<-function(a){
+    x0<-(1+a+(a^2)/2 +(a^3)/4 + (a^4)/8)^(-1)
+    x1<-x0*a
+    x2<-x0* (a^2)/2
+    x3<-x0* (a^3)/4
+    x4<-x0* (a^4)/8
+    x<-c(x2,x3,x4)
+    return(x)
+}
+
+#berechnungen mit a1-a3 
+result21<-hilfsfunktion2(a21)
+result22<-hilfsfunktion2(a22)
+result23<-hilfsfunktion2(a23)
+
+
+pw<-c(sum(result21),sum(result22),sum(result23))
+x2<-c(p21, p22, p23)
+
+
+#plot
+plot(x2, pw, type="b", main = "Warte- und Blockierwahrscheinlichkeit für neuen Kunden", xlab = "p = {0.3, 0.7, 0.9}", ylab = "Wahrscheinlichkeit", xlim=c(0.0,1.0))
+
+
+pw03 <- sum(werteMatrix[1,3:5])
+pw07 <- sum(werteMatrix[2,3:5])
+pw09 <- sum(werteMatrix[3,3:5])
+pwAll <- c(pw03,pw07,pw09)
+pwAll
+
+plot(x2,pwAll)
+```
+
+
+
 ##8. Calculate the mean server utilization and the mean waiting queue length!
+
+```{r}
+mwQueueLength <-c(0,0,0)
+mwQueueLength <- mwQueueLength + werteMatrix[,3]
+mwQueueLength <- mwQueueLength + 2*werteMatrix[,4]
+mwQueueLength <- mwQueueLength + 3*werteMatrix[,5]
+print(mwQueueLength)
+
+```
 
 ##9. Plot the mean utilization and the mean waiting queue length (as multiple of $\frac{1}{\mu}$) in the interval $p \in$(0, 1)!
 
